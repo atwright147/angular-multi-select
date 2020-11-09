@@ -25,7 +25,7 @@ export class SelectionCheckboxDirective implements OnInit, OnChanges, OnDestroy 
     private _selectionService: SelectionService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._checkbox.change.subscribe(event =>
       this._selection.onToggleSelection(this.model, this._shiftKey, this._ctrlKey, false));
 
@@ -34,16 +34,16 @@ export class SelectionCheckboxDirective implements OnInit, OnChanges, OnDestroy 
       .subscribe(() => this.checkSelected());
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.checkSelected();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
   }
 
-  checkSelected() {
+  checkSelected(): void {
     const current = this._selectionService.selections$.getValue();
     if (current) {
       this._checkbox.checked =
@@ -52,7 +52,7 @@ export class SelectionCheckboxDirective implements OnInit, OnChanges, OnDestroy 
   }
 
   @HostListener('mousedown', ['$event'])
-  onMouseDown(event: PointerEvent) {
+  onMouseDown(event: PointerEvent): void {
     event.preventDefault();
     this._shiftKey = event.shiftKey;
     this._ctrlKey = event.metaKey || event.ctrlKey;

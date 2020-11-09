@@ -17,7 +17,7 @@ export class SelectionService {
   /**
    * Select the passed model if its not already selected.
    */
-  select(model: any) {
+  select(model: any): void {
     const datasource = this.datasource$.getValue();
     const idx = datasource.findIndex(sel => compareFn(this.trackBy, sel, model));
     const current = this.selections$.getValue();
@@ -32,7 +32,7 @@ export class SelectionService {
   /**
    * Deselect the passed model if already selected.
    */
-  deselect(model: any) {
+  deselect(model: any): void {
     const datasource = this.datasource$.getValue();
     const idx = datasource.findIndex(sel => compareFn(this.trackBy, sel, model));
     const current = this.selections$.getValue();
@@ -49,7 +49,7 @@ export class SelectionService {
   /**
    * Toggle the selection of the model. If shift key passed, select a range.
    */
-  toggle(model: any, shiftKey: boolean, ctrlKey: boolean, drag: boolean) {
+  toggle(model: any, shiftKey: boolean, ctrlKey: boolean, drag: boolean): void {
     const current = this.selections$.getValue();
     const canSelectMultiSelect =
       (this.selectionType === SelectionType.multi && ctrlKey) ||
@@ -102,7 +102,7 @@ export class SelectionService {
   /**
    * Toggle all items in the datasource selected or not.
    */
-  toggleAll() {
+  toggleAll(): void {
     const current = this.selections$.getValue();
     const datasource = this.datasource$.getValue();
 
@@ -116,7 +116,7 @@ export class SelectionService {
   /**
    * Select a range between the provided indexes.
    */
-  private selectBetween(index: number, prevIndex: number) {
+  private selectBetween(index: number, prevIndex: number): void {
     const datasource = this.datasource$.getValue();
     const current = this.selections$.getValue();
 

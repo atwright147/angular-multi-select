@@ -63,7 +63,7 @@ export class SelectionDirective {
   /**
    * A child selection item was clicked.
    */
-  onToggleSelection(model: any, shiftKey?: boolean, ctrlKey?: boolean, drag?: boolean) {
+  onToggleSelection(model: any, shiftKey?: boolean, ctrlKey?: boolean, drag?: boolean): void {
     if (!this.selectionDisabled) {
       this._selectionService.toggle(model, shiftKey, ctrlKey, drag);
       this.selectionsChange.emit({
@@ -76,7 +76,7 @@ export class SelectionDirective {
   /**
    * A child select all was selected.
    */
-  onToggleAllSelection() {
+  onToggleAllSelection(): void {
     if (!this.selectionDisabled) {
       this._selectionService.toggleAll();
       this.selectionsChange.emit({

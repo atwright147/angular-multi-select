@@ -1,4 +1,4 @@
-import { Directive, HostListener, Host, OnInit, Optional, OnDestroy, HostBinding, Input } from '@angular/core';
+import { Directive, HostListener, Host, OnInit, Optional, OnDestroy, HostBinding, Input, OnChanges } from '@angular/core';
 import { SelectionDirective } from './selection.directive';
 import { SelectionService } from './selection.service';
 import { Subscription, combineLatest } from 'rxjs';
@@ -8,7 +8,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 @Directive({
   selector: '[dfSelectionAllCheckbox]'
 })
-export class SelectionAllCheckboxDirective implements OnInit, OnDestroy {
+export class SelectionAllCheckboxDirective implements OnInit, OnDestroy, OnChanges {
 
   private _subscription: Subscription;
 
@@ -18,30 +18,30 @@ export class SelectionAllCheckboxDirective implements OnInit, OnDestroy {
     private _selectionService: SelectionService
   ) {}
 
-  ngOnInit() {
-    this._subscription = combineLatest(this._selectionService.datasource$, this._selectionService.selections$)
+  ngOnInit(): void {
+    this._subscription = combineLatest([this._selectionService.datasource$, this._selectionService.selections$])
       .subscribe(() => this.checkSelected());
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.checkSelected();
   }
 
-  checkSelected() {
+  checkSelected(): void {
     const current = this._selectionService.selections$.getValue();
     const all = this._selectionService.datasource$.getValue();
     if (current) {
       this._checkbox.checked = current.length === all.length;
-      console.log('here', this._checkbox.checked)
+      console.log('here', this._checkbox.checked);
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._subscription.unsubscribe();
   }
 
   @HostListener('click', ['$event'])
-  onClick(event) {
+  onClick(event): void {
     this._selection.onToggleAllSelection();
   }
 

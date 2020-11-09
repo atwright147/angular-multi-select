@@ -36,7 +36,7 @@ export class SelectionItemDirective implements OnInit, OnChanges, OnDestroy {
     private _selectionService: SelectionService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.checkSelected();
 
     this._selectionService.selections$
@@ -44,16 +44,16 @@ export class SelectionItemDirective implements OnInit, OnChanges, OnDestroy {
       .subscribe(selections => this.checkSelected());
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.checkSelected();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
   }
 
-  checkSelected() {
+  checkSelected(): void {
     const current = this._selectionService.selections$.getValue();
     if (current) {
       this.selected = current.find(s => compareFn(this._selectionService.trackBy, s, this.model)) !== undefined;
@@ -61,21 +61,21 @@ export class SelectionItemDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   @HostListener('click', ['$event'])
-  onClick(event) {
+  onClick(event): void {
     if (!this.disabled) {
       this._selection.onToggleSelection(this.model, event.shiftKey, event.metaKey || event.ctrlKey, false);
     }
   }
 
   @HostListener('contextmenu', ['$event'])
-  onContextMenu(event) {
+  onContextMenu(event): void {
     if (!this.disabled) {
       this._selection.onToggleSelection(this.model, false, false, true);
     }
   }
 
   @HostListener('dragStart')
-  onDrag() {
+  onDrag(): void {
     if (!this.disabled) {
       this._selection.onToggleSelection(this.model, false, false, true);
     }
