@@ -7,6 +7,8 @@
   [dfSelectionDeselectable]="true"
   (selectionsChange)="onSelectionChange($event)"
 >
+  <mat-checkbox [dfSelectionAllCheckbox]>All</mat-checkbox><br>
+
   <ng-container *ngFor="let item of items">
     <mat-checkbox [dfSelectionCheckbox]="item">
       {{ item.name }}
